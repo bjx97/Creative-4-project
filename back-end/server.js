@@ -18,10 +18,10 @@ mongoose.connect('mongodb://localhost:27017/test', {
 
 const jobSchema = new mongoose.Schema({
   position: String, 
-  posteddate: Number,
+  posteddate: String,
   openings: Number,
-  startdate: Number, 
-  shift: Number, 
+  startdate: String, 
+  shift: String,
   wage: Number, 
   description: String
 });
@@ -36,6 +36,8 @@ jobSchema.set('toJSON', {
 });
 
 const Job = mongoose.model('Job', jobSchema);
+
+//submit comments/interests for jobs
 
 app.get('/api/jobs', async (req, res) => {
   try {
@@ -72,6 +74,38 @@ app.delete('/api/jobs/:id', async (req, res) => {
       _id: req.params.id
     });
     res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+app.put('/api/jobs/:id', async (req, res) => {
+  try {
+    let foundJob = await Job.findOne({
+      _id: req.params.id
+    });
+    foundJob.position = req.body.position;
+    foundJob.posteddate = req.body.posteddate;
+    foundJob.openings = req.body.openings;
+    foundJob.startdate = req.body.startdate;
+    foundJob.shift = req.body.shift;
+    foundJob.wage = req.body.wage;
+    foundJob.description = req.body.description;
+    await foundJob.save();
+    res.send(foundJob);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+app.get('/api/jobs/:id', async (req, res) => {
+  try {
+    let foundJob = await Job.findOne({
+      _id: req.params.id
+    });
+    res.send(foundJob);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);

@@ -7,9 +7,9 @@
       <div id="brand">
       </div>
       <div id="side">
-        <router-link to="/joblist">
+        <router-link to="/">
           <div class="menu-item browse">
-            <p>List</p>
+            <p>Home</p>
           </div>
         </router-link>
         <router-link to="/addjob">

@@ -4,19 +4,20 @@
 
   <div class="jobs-wrapper">
     <div v-for="job in jobs" v-bind:key="job.id">
-    <div class="job">
-      <div class="job-descrip">
-        <p>{{job.position}}</p>
-        <p><i>{{job.posteddate}}</i></p>
-        <p>{{job.openings}}</p>
-        <p>{{job.startdate}}</p>
-        <p>{{job.shift}}</p>
-        <p>{{job.wage}}</p>
-        <p>{{job.description}}</p>
-      </div>
-      <button @click="deleteJob(job)">Delete</button>
+        <div class="job">
+            <div class="job-descrip">
+                <p>{{job.position}}</p>
+                <p><i>{{job.posteddate}}</i></p>
+                <p>{{job.openings}}</p>
+                <p>{{job.startdate}}</p>
+                <p>{{job.shift}}</p>
+                <p>{{job.wage}}</p>
+                <p>{{job.description}}</p>
+            </div>
+            <button @click="deleteJob(job)">Delete</button>
+            <router-link :to="'/editjob/' + job.id" @click.native="setcurrentjob(job)">Edit</router-link>
+        </div>
     </div>
-  </div>
   </div>
 
   <div class="footer">
@@ -32,6 +33,14 @@ export default {
   data() {
     return {
       jobs: [],
+      findJob: null,
+      iPosition: '',
+      iDate: '',
+      iOpening: '',
+      iStart: '',
+      iShift: '',
+      iWage: '',
+      idescription: ''
     }
   },
   created() {
@@ -55,7 +64,34 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    }
+    },
+    async editItem(job) {
+      console.log("editing item: " + this.findItem.description);
+      try {
+        await axios.put("/api/jobs/" + job.id, {
+            
+            /*posteddate = this.job.posteddate,
+            openings = this.job.openings,
+            startdate = this.job.startdate,
+            shift = this.job.shift,
+            wage = this.job.wage,
+            description = this.job.description,*/
+        });
+        this.job = null;
+        this.posteddate = null;
+        this.openings;
+        this.startdate;
+        this.shift;
+        this.wage;
+        this.description;
+        return true;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+   setcurrentjob(job) {
+       this.$root.$data.currentjob = job;
+   } 
   }
 }
 </script>
