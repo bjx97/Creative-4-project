@@ -50,6 +50,22 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    async editJob() {
+      try {
+        await axios.put("/api/jobs/" + this.$route.params.id, {
+          position: this.ePosition,
+          posteddate: this.eDate,
+          openings:  this.eOpening,
+          startdate: this.eStart,
+          shift: this.eShift,
+          wage:  this.eWage,
+          description: this.eDescription
+        });
+        return true;
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
   created () {

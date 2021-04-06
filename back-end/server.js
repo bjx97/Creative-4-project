@@ -26,6 +26,11 @@ const jobSchema = new mongoose.Schema({
   description: String
 });
 
+const commentSchema = new mongoose.Schema({
+  interests: String
+});
+
+
 jobSchema.virtual('id')
   .get(function() {
     return this._id.toHexString();
@@ -37,6 +42,7 @@ jobSchema.set('toJSON', {
 
 const Job = mongoose.model('Job', jobSchema);
 
+const Comment = mongoose.model('Comment', commentSchema);
 //submit comments/interests for jobs
 
 app.get('/api/jobs', async (req, res) => {
@@ -105,6 +111,26 @@ app.get('/api/jobs/:id', async (req, res) => {
     let foundJob = await Job.findOne({
       _id: req.params.id
     });
+    res.send(foundJob);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+app.put('/api/jobs/:id', async (req, res) => {
+  try {
+    let foundJob = await Job.findOne({
+      _id: req.params.id
+    });
+    foundJob.position = req.body.position;
+    foundJob.posteddate = req.body.posteddate;
+    foundJob.openings = req.body.openings;
+    foundJob.startdate = req.body.startdate;
+    foundJob.shift = req.body.shift;
+    foundJob.wage = req.body.wage;
+    foundJob.description = req.body.description;
+    await foundJob.save();
     res.send(foundJob);
   } catch (error) {
     console.log(error);

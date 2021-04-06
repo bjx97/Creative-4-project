@@ -6,16 +6,18 @@
     <div v-for="job in jobs" v-bind:key="job.id">
         <div class="job">
             <div class="job-descrip">
-                <p>{{job.position}}</p>
-                <p><i>{{job.posteddate}}</i></p>
-                <p>{{job.openings}}</p>
-                <p>{{job.startdate}}</p>
-                <p>{{job.shift}}</p>
-                <p>{{job.wage}}</p>
-                <p>{{job.description}}</p>
+                <p><strong>Job Position: </strong>{{job.position}}</p>
+                <p><strong>Posted On: </strong><i>{{job.posteddate}}</i></p>
+                <p><strong>Opening: </strong>{{job.openings}}</p>
+                <p><strong>Start Date: </strong>{{job.startdate}}</p>
+                <p><strong>Shifts: </strong>{{job.shift}}</p>
+                <p><strong>Hourly Pay: </strong>${{job.wage}}</p>
+                <p><strong>Job Description: </strong>{{job.description}}</p>
             </div>
-            <button @click="deleteJob(job)">Delete</button>
-            <router-link :to="'/editjob/' + job.id" @click.native="setcurrentjob(job)">Edit</router-link>
+            <div class="buttons">
+              <button @click="deleteJob(job)">Delete</button>
+              <router-link :to="'/editjob/' + job.id">Edit</router-link>
+            </div>
         </div>
     </div>
   </div>
@@ -64,34 +66,11 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    },
-    async editItem(job) {
-      console.log("editing item: " + this.findItem.description);
-      try {
-        await axios.put("/api/jobs/" + job.id, {
-            
-            /*posteddate = this.job.posteddate,
-            openings = this.job.openings,
-            startdate = this.job.startdate,
-            shift = this.job.shift,
-            wage = this.job.wage,
-            description = this.job.description,*/
-        });
-        this.job = null;
-        this.posteddate = null;
-        this.openings;
-        this.startdate;
-        this.shift;
-        this.wage;
-        this.description;
-        return true;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-   setcurrentjob(job) {
+    }
+   /*setcurrentjob(job) {
+     @click.native="setcurrentjob(job);
        this.$root.$data.currentjob = job;
-   } 
+   }*/
   }
 }
 </script>
@@ -105,36 +84,9 @@ export default {
   margin-bottom: 40px;
 }
 
-.books {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-.book {
-    display: flex;
-    flex-direction: column;
-    width: 38%;
-    padding: 20px;
-    margin-bottom: 30px;
-    border: 5px double #333;
-}
-
-.image-wrapper img {
-    height: 280px;
-    width: 200px;
-    object-fit: cover;
-}
-
-.info {
-    padding-top: 70px;
-    text-align: left;
-    margin-left: 20px;
-}
-
-.info-wrapper {
-    display: flex;
-    justify-content: space-around;
+.job {
+  display: flex;
+  margin-bottom: 10px;
 }
 
 </style>

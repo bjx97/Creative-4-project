@@ -4,10 +4,10 @@ import router from './router'
 
 Vue.config.productionTip = false
 
-let data = {currentjob: ""}
+//let data = {currentjob: ""}
 
 new Vue({
   router,
-  data,
+  //data,
   render: h => h(App)
 }).$mount('#app')
