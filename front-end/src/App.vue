@@ -20,6 +20,9 @@
       </div>
     </div>
     <router-view />
+    <div class="footer">
+      <a href="https://github.com/bjx97/Creative-4-project" target="_blank">GitHub Repository</a>
+    </div>
   </div>
 </template>
 

@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import AddJob from '../views/Addjob.vue'
 import JobList from '../views/Joblist.vue'
 import EditJob from '../views/Editjob.vue'
+import CommentJob from '../views/Comments.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/editjob/:id',
     name: 'Editjob',
     component: EditJob
+  },
+  {
+    path: '/commentjob/:id',
+    name: 'CommentJob',
+    component: CommentJob
   }
 ]
 

@@ -1,15 +1,19 @@
 <template>
     <div>
         <div class='header1' style="color:#1270bd;"><h2>Edit Job Posts Here</h2></div>
+        <br/>
+        <h4><i>Details will be updated after clicking "Update Post"</i></h4>
+        <hr/>
+        <br/>
         <div class="addedWrapper">
             <div class="form-wrapper">
                 <form v-on:submit.prevent="editJob()">
-                    <input v-model="ePosition" placeholder="Position"><br/>
-                    <input v-model="eDate" placeholder="Posted Date"><br/>
-                    <input v-model="eOpening" placeholder="Openings"><br/>
-                    <input v-model="eStart" placeholder="Start Date"><br/>
-                    <input v-model="eShift" placeholder="Shift"><br/>
-                    <input v-model="eWage" placeholder="Hourly Wage"><br/>
+                    <input v-model="ePosition" placeholder="Position"><br/><br/>
+                    <input v-model="eDate" placeholder="Posted Date"><br/><br/>
+                    <input v-model="eOpening" placeholder="Openings"><br/><br/>
+                    <input v-model="eStart" placeholder="Start Date"><br/><br/>
+                    <input v-model="eShift" placeholder="Shift"><br/><br/>
+                    <input v-model="eWage" placeholder="Hourly Wage"><br/><br/>
                     <textarea rows="4" cols="50"  v-model="eDescription" placeholder="Description"></textarea><br/><br/>
                     <button type="submit">Update Post</button>
                 </form>

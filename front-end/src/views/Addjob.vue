@@ -6,19 +6,16 @@
             <div class="form-wrapper">
                 <h2>Enter Job Details:</h2><br/>
                 <form v-on:submit.prevent="addJob">
-                    <p>Position: <input v-model="aPosition"></p><br/>
-                    <p>Date Posted: <input v-model="aDate"></p><br/>
-                    <p>Openings: <input v-model="aOpening"></p><br/>
-                    <p>Start Date: <input v-model="aStart"></p><br/>
-                    <p>Shift: <input v-model="aShift"></p><br/>
-                    <p>Hourly Wage: <input v-model="aWage"></p><br/>
-                    <p>Job Description: <textarea rows="4" cols="50"  v-model="description" placeholder="Description"></textarea></p><br/><br/>
+                    <input v-model="aPosition" placeholder="Position"><br/><br/>
+                    <input v-model="aDate" placeholder="Current Date"><br/><br/>
+                    <input v-model="aOpening" placeholder="Openings"><br/><br/>
+                    <input v-model="aStart" placeholder="Start Date"><br/><br/>
+                    <input v-model="aShift" placeholder="Shift"><br/><br/>
+                    <input v-model="aWage" placeholder="Hourly Wage"><br/><br/>
+                    <textarea rows="4" cols="50"  v-model="description" placeholder="Description"></textarea><br/><br/>
                     <button type="submit">Post Job</button>
                 </form>
             </div>
-        </div>
-        <div class="footer">
-            <!--<a href="https://github.com/bjx97/creative-project-3" target="_blank">GitHub Repository</a>-->
         </div>
     </div>
 </template>
@@ -70,28 +67,12 @@ export default {
 <style scoped>
 
 .header1 {
-  display: flex;
-  justify-content: center;
-  color: #868583;
   margin-bottom: 60px;
 }
 
 .form-wrapper {
-
-}
-
-.addedWrapper {
-    display: flex;
-    justify-content: space-between;
-}
-
-.item-wrapper {
-    display: flex;
-}
-
-.remove-wrapper {
-    padding-top: 50px;
-    padding-left: 50px;
+  display: flex;
+  flex-direction: column;
 }
 
 </style>

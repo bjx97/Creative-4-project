@@ -26,11 +26,6 @@ const jobSchema = new mongoose.Schema({
   description: String
 });
 
-const commentSchema = new mongoose.Schema({
-  interests: String
-});
-
-
 jobSchema.virtual('id')
   .get(function() {
     return this._id.toHexString();
@@ -41,6 +36,17 @@ jobSchema.set('toJSON', {
 });
 
 const Job = mongoose.model('Job', jobSchema);
+
+const commentSchema = new mongoose.Schema({
+  job: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Job'
+  },
+  text: String,
+  name: String,
+  whenDate: String
+});
+
 
 const Comment = mongoose.model('Comment', commentSchema);
 //submit comments/interests for jobs
@@ -135,6 +141,61 @@ app.put('/api/jobs/:id', async (req, res) => {
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
+  }
+});
+
+
+
+app.post('/api/jobs/:id/comments', async (req, res) => {
+  try {
+      let job = await Job.findOne({_id: req.params.id});
+      if (!job) {
+          res.send(404);
+          return;
+      }
+      let comment = new Comment({
+          job: job,
+          text: req.body.text,
+          name: req.body.name,
+          whenDate: req.body.whenDate
+      });
+      await comment.save();
+      res.send(comment);
+  } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+  }
+});
+
+app.get('/api/jobs/:id/comments', async (req, res) => {
+  try {
+      let job = await Job.findOne({_id: req.params.id});
+      if (!job) {
+          res.send(404);
+          return;
+      }
+      let comments = await Comment.find({job:job});
+      //console.log(comments);
+      res.send(comments);
+  } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+  }
+});
+
+
+app.delete('/api/jobs/:id/comments/:commentID', async (req, res) => {
+  try {
+      let comment = await Comment.findOne({_id:req.params.commentID, job: req.params.id});
+      if (!comment) {
+          res.send(404);
+          return;
+      }
+      await comment.delete();
+      res.sendStatus(200);
+  } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
   }
 });
 
