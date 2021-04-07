@@ -44,7 +44,8 @@ const commentSchema = new mongoose.Schema({
   },
   text: String,
   name: String,
-  whenDate: String
+  whenDate: String,
+  jobEmail: String
 });
 
 
@@ -157,7 +158,8 @@ app.post('/api/jobs/:id/comments', async (req, res) => {
           job: job,
           text: req.body.text,
           name: req.body.name,
-          whenDate: req.body.whenDate
+          whenDate: req.body.whenDate,
+          jobEmail: req.body.jobEmail
       });
       await comment.save();
       res.send(comment);

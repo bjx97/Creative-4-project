@@ -18,12 +18,14 @@
                     <router-link :to="'/editjob/' + job.id">Edit</router-link>
                   </div>
                   <button @click="showComments(job)">See Comments</button>
+                  <p style="font-size: 12px"><i>PS:Scroll down to see comments</i></p>
                 </div>
                 <div v-if="showing" class="if-com">
                   <h3>List of Comments:</h3>
                   <br/>
                   <div v-for="comment in comments" v-bind:key="comment._id">
                     <p><strong>Name: </strong>{{comment.name}}</p>
+                    <p><strong>Email: </strong>{{comment.jobEmail}}</p>
                     <p><strong>Comment: </strong>{{comment.text}}</p>
                     <p><i><strong>Date: </strong>{{comment.whenDate}}</i></p>               
                     <button @click="deleteComment(comment, job)">Delete</button>
@@ -39,6 +41,7 @@
               <form class="form-wrap" v-on:submit.prevent="commentJob(job)">
                 <input v-model="hName" placeholder="Name"/><br/>
                 <input v-model="hDate" placeholder="Date"/><br/>
+                <input v-model="hEmail" placeholder="Email for Application"/><br/>
                 <textarea rows="4" cols="50"  v-model="hComment" placeholder="Comments/Interests"></textarea><br/>
                 <button type="submit">Comment</button>
               </form>
@@ -46,7 +49,6 @@
         </div>
     </div>
   </div>
-
 </div>
 </template>
 
@@ -68,6 +70,7 @@ export default {
       hComment: '',
       hName: '',
       hDate: '',
+      hEmail: '',
       showing: false
     }
   },
@@ -109,11 +112,13 @@ export default {
         await axios.post("/api/jobs/" + job.id + "/comments", {
             text: this.hComment,
             name: this.hName,
-            whenDate: this.hDate
+            whenDate: this.hDate,
+            jobEmail: this.hEmail
         });
         this.hComment = "";
         this.hName = "";
         this.hDate = "";
+        this.hEmail = "";
         return true;
       } catch (error) {
         console.log(error);
